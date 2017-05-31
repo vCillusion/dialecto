@@ -1,5 +1,7 @@
 package com.madeforindia.dialecto.engine;
 
-public class ExperimentCreator {
+import com.madeforindia.dialecto.model.Category;
 
+public interface ExperimentCreator {
+	Category Create();
 }

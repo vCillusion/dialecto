@@ -33,7 +33,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(path="/categories/{id}", method = RequestMethod.GET)
-	public List<Category> findByEnglish(@PathVariable String id) throws IOException {
+	public List<Category> findById(@PathVariable String id) throws IOException {
 		
 		BasicQuery query1 = new BasicQuery("{ _id : '" + id + "' }");
 		return mongoTemplate.find(query1, Category.class);
@@ -41,21 +41,20 @@ public class CategoryController {
 	}
 
 	@RequestMapping(value = "/categories", method = RequestMethod.POST)
-	public int save(@RequestBody Category category) {
+	public int add(@RequestBody Category category) {
 		
 		Query query = new Query();
 		query.addCriteria(Criteria.where("name").is(category.getName()));
-		Category dbColor = mongoTemplate.findOne(query, Category.class);
-		if(dbColor != null){
-			return -1;
+		Category dbCategory = mongoTemplate.findOne(query, Category.class);
+		if(dbCategory != null){
+			category.setId(dbCategory.getId());
 		}
-		
 		mongoRepository.save(category);
-		return -1;
+		return 1;
 	}
 	
 	@RequestMapping(value = "/categories/{id}", method = RequestMethod.PUT)
-	public int updateCategory(@PathVariable String id, @RequestBody Category color) {
+	public int updateById(@PathVariable String id, @RequestBody Category color) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("_id").is(id));
 		
