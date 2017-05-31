@@ -32,7 +32,7 @@ public class ApparelController {
 	}
 	
 	@RequestMapping(path="/apparel/{id}", method = RequestMethod.GET)
-	public List<Apparel> findByEnglish(@PathVariable String id) throws IOException {
+	public List<Apparel> findById(@PathVariable String id) throws IOException {
 		
 		BasicQuery query1 = new BasicQuery("{ _id : '" + id + "' }");
 		return mongoTemplate.find(query1, Apparel.class);
@@ -40,28 +40,20 @@ public class ApparelController {
 	}
 
 	@RequestMapping(value = "/apparel", method = RequestMethod.POST)
-	public int save(@RequestBody Apparel apparel) {
-		
-		Query query = new Query();
-		query.addCriteria(Criteria.where("singular").is(apparel.getSingular()));
-		Apparel dbColor = mongoTemplate.findOne(query, Apparel.class);
-		if(dbColor != null){
-			return -1;
-		}
+	public int add(@RequestBody Apparel apparel) {
 		
 		mongoRepository.save(apparel);
-		return -1;
+		return 1;
 	}
 	
 	@RequestMapping(value = "/apparel/{id}", method = RequestMethod.PUT)
-	public int updateByEnglish(@PathVariable String id, @RequestBody Apparel apparel) {
+	public int updateById(@PathVariable String id, @RequestBody Apparel apparel) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("_id").is(id));
 		
 		Apparel dbApparel = mongoTemplate.findOne(query, Apparel.class);
 		if(dbApparel != null){
-			dbApparel.setSingular(apparel.getSingular());
-			dbApparel.setPlural(apparel.getPlural());
+			apparel.setId(dbApparel.getId());
 			mongoRepository.save(dbApparel);
 			return 1;
 		}

@@ -32,7 +32,7 @@ public class ColorController {
 	}
 	
 	@RequestMapping(path="/colors/{id}", method = RequestMethod.GET)
-	public List<Color> findByEnglish(@PathVariable String id) throws IOException {
+	public List<Color> findById(@PathVariable String id) throws IOException {
 		
 		BasicQuery query1 = new BasicQuery("{ _id : '" + id + "' }");
 		return mongoTemplate.find(query1, Color.class);
@@ -40,21 +40,14 @@ public class ColorController {
 	}
 
 	@RequestMapping(value = "/colors", method = RequestMethod.POST)
-	public int save(@RequestBody Color color) {
-		
-		Query query = new Query();
-		query.addCriteria(Criteria.where("value").is(color.getValue()));
-		Color dbColor = mongoTemplate.findOne(query, Color.class);
-		if(dbColor != null){
-			return -1;
-		}
+	public int add(@RequestBody Color color) {
 		
 		mongoRepository.save(color);
-		return -1;
+		return 1;
 	}
 	
 	@RequestMapping(value = "/colors/{id}", method = RequestMethod.PUT)
-	public int updateByEnglish(@PathVariable String id, @RequestBody Color color) {
+	public int updateById(@PathVariable String id, @RequestBody Color color) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("_id").is(id));
 		
