@@ -7,6 +7,7 @@ public class Product {
 	private String description;
 	private String category;
 	private String url;
+	
 	public String getId() {
 		return id;
 	}

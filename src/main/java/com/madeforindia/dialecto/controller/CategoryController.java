@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.madeforindia.dialecto.model.Category;
-import com.madeforindia.dialecto.model.ExperimentText;
+import com.madeforindia.dialecto.model.Experiment;
 import com.madeforindia.dialecto.repository.CategoryMongoRepository;
 
 @RestController
@@ -71,7 +71,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value = "/categories/{id}/experiments", method = RequestMethod.POST)
-	public int updateCategory(@PathVariable String id, @RequestBody ExperimentText e) {
+	public int updateCategory(@PathVariable String id, @RequestBody Experiment e) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("_id").is(id));
 		
@@ -87,7 +87,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value = "/categories/{id}/experiments/{eid}", method = RequestMethod.POST)
-	public int updateCategory(@PathVariable String id, @PathVariable String eid, @RequestBody ExperimentText e) {
+	public int updateCategory(@PathVariable String id, @PathVariable String eid, @RequestBody Experiment e) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("_id").is(id));
 		
@@ -95,15 +95,9 @@ public class CategoryController {
 	
 		if(dbCategory != null){
 			boolean updated = false;
-			for(ExperimentText dbEt : dbCategory.getExperiments())
+			for(Experiment dbEt : dbCategory.getExperiments())
 			{
-				if(dbEt.getId().equals(eid)){
-					dbEt.setMarathi(e.getMarathi());
-					dbEt.setBengali(e.getBengali());
-					dbEt.setEnglish(e.getEnglish());
-					dbEt.setHindi(e.getHindi());
-					updated = true;
-				}
+				
 			}
 			
 			if(updated){

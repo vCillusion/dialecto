@@ -13,7 +13,7 @@ public class Customer {
 	
 	private String name;
 	private SnapshotSetting setting;
-	private List<CategorySnapshot> snapshots;
+	private List<Snapshot> snapshots;
 	
 	public String getId() {
 		return id;
@@ -35,12 +35,12 @@ public class Customer {
 	public void setSetting(SnapshotSetting setting) {
 		this.setting = setting;
 	}
-	public List<CategorySnapshot> getSnapshots() {
+
+	public List<Snapshot> getSnapshots() {
 		return snapshots;
 	}
-	public void setSnapshots(List<CategorySnapshot> snapshots) {
+
+	public void setSnapshots(List<Snapshot> snapshots) {
 		this.snapshots = snapshots;
 	}
-	
-	
 }

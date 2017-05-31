@@ -43,7 +43,7 @@ public class ColorController {
 	public int save(@RequestBody Color color) {
 		
 		Query query = new Query();
-		query.addCriteria(Criteria.where("english").is(color.getEnglish()));
+		query.addCriteria(Criteria.where("value").is(color.getValue()));
 		Color dbColor = mongoTemplate.findOne(query, Color.class);
 		if(dbColor != null){
 			return -1;

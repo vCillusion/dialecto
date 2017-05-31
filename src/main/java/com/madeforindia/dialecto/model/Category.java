@@ -12,7 +12,7 @@ public class Category {
 	private String id;
 	
 	private String name;
-	private List<ExperimentText> experiments;
+	private List<Experiment> experiments;
 	
 	public String getId() {
 		return id;
@@ -30,11 +30,11 @@ public class Category {
 		this.name = name;
 	}
 
-	public List<ExperimentText> getExperiments() {
+	public List<Experiment> getExperiments() {
 		return experiments;
 	}
 
-	public void setExperiments(List<ExperimentText> experiments) {
+	public void setExperiments(List<Experiment> experiments) {
 		this.experiments = experiments;
 	}
 
