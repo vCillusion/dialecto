@@ -1,7 +1,6 @@
 package com.madeforindia.dialecto.engine;
 
 import java.util.ArrayList;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,28 +36,26 @@ public class ApparelExperimentCreator implements ExperimentCreator {
 		// Apparel
 		for(Apparel apparel : apparelRepository.findAll()){
 			
-			Optional<ModelEntry> englishApparel = apparel.getEntries().stream().filter(item -> item.getLanguage().equals("en")).findFirst();
-			if(!englishApparel.isPresent()){
+			ModelEntry englishApparel = apparel.getEn();
+			if(englishApparel == null){
 				continue;
 			}
 			
 			Experiment apparelEx = new Experiment();
-			Sample apparelSample = new Sample();
-			apparelSample.setLanguage("en");
-			apparelSample.setValue(englishApparel.get().getSingular());
-			apparelEx.setSamples(new ArrayList<Sample>() {{ add(apparelSample); }});
+			Sample enSample = new Sample();
+			enSample.setValue(englishApparel.getSingular());
+			apparelEx.setEn(enSample);
 			experiments.add(apparelEx);
 			
 			// Fabric
 			for(Fabric fabric : fabricRepository.findAll()){
-				Optional<ModelEntry> englishFabric = fabric.getEntries().stream().filter(item -> item.getLanguage().equals("en")).findFirst();
-				if(englishFabric.isPresent()){
+				ModelEntry englishFabric = fabric.getEn();
+				if(englishFabric != null){
 
 					Experiment fabricApparelEx = new Experiment();
 					Sample fabricApparelSample = new Sample();
-					fabricApparelSample.setLanguage("en");
-					fabricApparelSample.setValue(String.format("%s %s", englishFabric.get().getSingular(), englishApparel.get().getSingular()));
-					fabricApparelEx.setSamples(new ArrayList<Sample>() {{ add(fabricApparelSample); }});
+					fabricApparelSample.setValue(String.format("%s %s", englishFabric.getSingular(), englishApparel.getSingular()));
+					fabricApparelEx.setEn(fabricApparelSample);
 					experiments.add(fabricApparelEx);
 				}
 			}
@@ -66,28 +63,26 @@ public class ApparelExperimentCreator implements ExperimentCreator {
 			// Color
 			for(Color color : colorRepository.findAll()){
 				
-				Optional<ModelEntry> englishColor = color.getEntries().stream().filter(item -> item.getLanguage().equals("en")).findFirst();
-				if(englishColor.isPresent()){
+				ModelEntry englishColor = color.getEn();
+				if(englishColor != null){
 
 					Experiment colorApparelEx = new Experiment();
 					Sample colorApparelSample = new Sample();
-					colorApparelSample.setLanguage("en");
-					colorApparelSample.setValue(String.format("%s %s", englishColor.get().getSingular(), englishApparel.get().getSingular()));
-					colorApparelEx.setSamples(new ArrayList<Sample>() {{ add(colorApparelSample); }});
+					colorApparelSample.setValue(String.format("%s %s", englishColor.getSingular(), englishApparel.getSingular()));
+					colorApparelEx.setEn(colorApparelSample);
 					experiments.add(colorApparelEx);
 				}
 				
 				// Fabric
 				for(Fabric fabric : fabricRepository.findAll()){
-					Optional<ModelEntry> englishFabric = fabric.getEntries().stream().filter(item -> item.getLanguage().equals("en")).findFirst();
-					if(englishFabric.isPresent()){
+					ModelEntry englishFabric = fabric.getEn();
+					if(englishFabric != null){
 
 						Experiment fabricApparelEx = new Experiment();
 						Sample fabricApparelSample = new Sample();
-						fabricApparelSample.setLanguage("en");
-						fabricApparelSample.setValue(String.format("%s %s %s", englishColor.get().getSingular(), englishFabric.get().getSingular(), 
-								englishApparel.get().getSingular()));
-						fabricApparelEx.setSamples(new ArrayList<Sample>() {{ add(fabricApparelSample); }});
+						fabricApparelSample.setValue(String.format("%s %s %s", englishColor.getSingular(), englishFabric.getSingular(), 
+								englishApparel.getSingular()));
+						fabricApparelEx.setEn(fabricApparelSample);
 						experiments.add(fabricApparelEx);
 					}
 				}

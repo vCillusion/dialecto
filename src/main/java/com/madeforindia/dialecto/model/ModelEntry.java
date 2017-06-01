@@ -2,7 +2,6 @@ package com.madeforindia.dialecto.model;
 
 public class ModelEntry {
 	
-	private String language;
 	private String singular;
 	private String plural;
 	
@@ -20,13 +19,5 @@ public class ModelEntry {
 
 	public void setPlural(String plural) {
 		this.plural = plural;
-	}
-
-	public String getLanguage() {
-		return language;
-	}
-
-	public void setLanguage(String language) {
-		this.language = language;
 	}
 }
