@@ -2,53 +2,19 @@ package com.madeforindia.dialecto.model;
 
 public class SnapshotSetting {
 	
-	private boolean collectEnglish;
-	private boolean collectHindi;
-	private boolean collectBengali;
-	private boolean collectMarathi;
+	private CategorySetting categorySetting;
+	private LanguageSetting languageSetting;
 	
-	private boolean collectClothing;
-
-	public boolean isCollectEnglish() {
-		return collectEnglish;
+	public CategorySetting getCategorySetting() {
+		return categorySetting;
 	}
-
-	public void setCollectEnglish(boolean collectEnglish) {
-		this.collectEnglish = collectEnglish;
+	public void setCategorySetting(CategorySetting categorySetting) {
+		this.categorySetting = categorySetting;
 	}
-
-	public boolean isCollectHindi() {
-		return collectHindi;
+	public LanguageSetting getLanguageSetting() {
+		return languageSetting;
 	}
-
-	public void setCollectHindi(boolean collectHindi) {
-		this.collectHindi = collectHindi;
+	public void setLanguageSetting(LanguageSetting languageSetting) {
+		this.languageSetting = languageSetting;
 	}
-
-	public boolean isCollectBengali() {
-		return collectBengali;
-	}
-
-	public void setCollectBengali(boolean collectBengali) {
-		this.collectBengali = collectBengali;
-	}
-
-	public boolean isCollectMarathi() {
-		return collectMarathi;
-	}
-
-	public void setCollectMarathi(boolean collectMarathi) {
-		this.collectMarathi = collectMarathi;
-	}
-
-	public boolean isCollectClothing() {
-		return collectClothing;
-	}
-
-	public void setCollectClothing(boolean collectClothing) {
-		this.collectClothing = collectClothing;
-	}
-	
-	
-
 }

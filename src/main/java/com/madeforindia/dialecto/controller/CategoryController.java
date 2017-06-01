@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.madeforindia.dialecto.model.Category;
-import com.madeforindia.dialecto.model.ExperimentText;
+import com.madeforindia.dialecto.model.Experiment;
 import com.madeforindia.dialecto.repository.CategoryMongoRepository;
 
 @RestController
@@ -33,7 +33,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(path="/categories/{id}", method = RequestMethod.GET)
-	public List<Category> findByEnglish(@PathVariable String id) throws IOException {
+	public List<Category> findById(@PathVariable String id) throws IOException {
 		
 		BasicQuery query1 = new BasicQuery("{ _id : '" + id + "' }");
 		return mongoTemplate.find(query1, Category.class);
@@ -41,21 +41,20 @@ public class CategoryController {
 	}
 
 	@RequestMapping(value = "/categories", method = RequestMethod.POST)
-	public int save(@RequestBody Category category) {
+	public int add(@RequestBody Category category) {
 		
 		Query query = new Query();
 		query.addCriteria(Criteria.where("name").is(category.getName()));
-		Category dbColor = mongoTemplate.findOne(query, Category.class);
-		if(dbColor != null){
-			return -1;
+		Category dbCategory = mongoTemplate.findOne(query, Category.class);
+		if(dbCategory != null){
+			category.setId(dbCategory.getId());
 		}
-		
 		mongoRepository.save(category);
-		return -1;
+		return 1;
 	}
 	
 	@RequestMapping(value = "/categories/{id}", method = RequestMethod.PUT)
-	public int updateCategory(@PathVariable String id, @RequestBody Category color) {
+	public int updateById(@PathVariable String id, @RequestBody Category color) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("_id").is(id));
 		
@@ -71,7 +70,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value = "/categories/{id}/experiments", method = RequestMethod.POST)
-	public int updateCategory(@PathVariable String id, @RequestBody ExperimentText e) {
+	public int updateCategory(@PathVariable String id, @RequestBody Experiment e) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("_id").is(id));
 		
@@ -87,7 +86,7 @@ public class CategoryController {
 	}
 	
 	@RequestMapping(value = "/categories/{id}/experiments/{eid}", method = RequestMethod.POST)
-	public int updateCategory(@PathVariable String id, @PathVariable String eid, @RequestBody ExperimentText e) {
+	public int updateCategory(@PathVariable String id, @PathVariable String eid, @RequestBody Experiment e) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("_id").is(id));
 		
@@ -95,15 +94,9 @@ public class CategoryController {
 	
 		if(dbCategory != null){
 			boolean updated = false;
-			for(ExperimentText dbEt : dbCategory.getExperiments())
+			for(Experiment dbEt : dbCategory.getExperiments())
 			{
-				if(dbEt.getId().equals(eid)){
-					dbEt.setMarathi(e.getMarathi());
-					dbEt.setBengali(e.getBengali());
-					dbEt.setEnglish(e.getEnglish());
-					dbEt.setHindi(e.getHindi());
-					updated = true;
-				}
+				
 			}
 			
 			if(updated){

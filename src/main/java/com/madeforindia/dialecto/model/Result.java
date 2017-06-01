@@ -11,5 +11,4 @@ public class Result {
 	public void setScore(double score) {
 		this.score = score;
 	}
-	
 }

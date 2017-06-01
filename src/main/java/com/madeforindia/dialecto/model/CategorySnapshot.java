@@ -19,7 +19,6 @@ public class CategorySnapshot {
 		this.runtime = runtime;
 	}
 	
-	
 	public String getCategory() {
 		return category;
 	}

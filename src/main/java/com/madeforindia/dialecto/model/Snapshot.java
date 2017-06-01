@@ -9,6 +9,7 @@ public class Snapshot {
 	private boolean isCompleted;
 	private boolean isError;
 	private String error;
+	private SnapshotSetting setting;
 	private List<CategorySnapshot> categorySnapshots;
 	
 	public Date getRuntime() {
@@ -16,12 +17,6 @@ public class Snapshot {
 	}
 	public void setRuntime(Date runtime) {
 		this.runtime = runtime;
-	}
-	public List<CategorySnapshot> setCategorySnapshots() {
-		return categorySnapshots;
-	}
-	public void setCategorySnapshots(List<CategorySnapshot> categorySnapshots) {
-		this.categorySnapshots = categorySnapshots;
 	}
 	public boolean isCompleted() {
 		return isCompleted;
@@ -41,6 +36,19 @@ public class Snapshot {
 	public void setError(String error) {
 		this.error = error;
 	}
+	public SnapshotSetting getSetting() {
+		return setting;
+	}
+	public void setSetting(SnapshotSetting setting) {
+		this.setting = setting;
+	}
+	public List<CategorySnapshot> getCategorySnapshots() {
+		return categorySnapshots;
+	}
+	public void setCategorySnapshots(List<CategorySnapshot> categorySnapshots) {
+		this.categorySnapshots = categorySnapshots;
+	}
+
 	
 	
 }

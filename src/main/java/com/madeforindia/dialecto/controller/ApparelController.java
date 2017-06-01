@@ -14,48 +14,47 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.madeforindia.dialecto.model.Color;
-import com.madeforindia.dialecto.repository.ColorMongoRepository;
+import com.madeforindia.dialecto.model.Apparel;
+import com.madeforindia.dialecto.repository.ApparelMongoRepository;
 
 @RestController
-public class ColorController {
+public class ApparelController {
 
 	@Autowired
-	private ColorMongoRepository mongoRepository;
+	private ApparelMongoRepository mongoRepository;
 	
 	@Autowired
 	private MongoTemplate mongoTemplate;
 
-	@RequestMapping(path="/colors", method = RequestMethod.GET)
-	public List<Color> findAll() throws IOException {
+	@RequestMapping(path="/apparel", method = RequestMethod.GET)
+	public List<Apparel> findAll() throws IOException {
 		return mongoRepository.findAll();
 	}
 	
-	@RequestMapping(path="/colors/{id}", method = RequestMethod.GET)
-	public List<Color> findById(@PathVariable String id) throws IOException {
+	@RequestMapping(path="/apparel/{id}", method = RequestMethod.GET)
+	public List<Apparel> findById(@PathVariable String id) throws IOException {
 		
 		BasicQuery query1 = new BasicQuery("{ _id : '" + id + "' }");
-		return mongoTemplate.find(query1, Color.class);
+		return mongoTemplate.find(query1, Apparel.class);
 		
 	}
 
-	@RequestMapping(value = "/colors", method = RequestMethod.POST)
-	public int add(@RequestBody Color color) {
+	@RequestMapping(value = "/apparel", method = RequestMethod.POST)
+	public int add(@RequestBody Apparel apparel) {
 		
-		mongoRepository.save(color);
+		mongoRepository.save(apparel);
 		return 1;
 	}
 	
-	@RequestMapping(value = "/colors/{id}", method = RequestMethod.PUT)
-	public int updateById(@PathVariable String id, @RequestBody Color color) {
+	@RequestMapping(value = "/apparel/{id}", method = RequestMethod.PUT)
+	public int updateById(@PathVariable String id, @RequestBody Apparel apparel) {
 		Query query = new Query();
 		query.addCriteria(Criteria.where("_id").is(id));
 		
-		Color dbColor = mongoTemplate.findOne(query, Color.class);
-	
-		if(dbColor != null){
-			color.setId(dbColor.getId());
-			mongoRepository.save(color);
+		Apparel dbApparel = mongoTemplate.findOne(query, Apparel.class);
+		if(dbApparel != null){
+			apparel.setId(dbApparel.getId());
+			mongoRepository.save(dbApparel);
 			return 1;
 		}
 		
